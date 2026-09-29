@@ -27,7 +27,12 @@ input,select,textarea{width:100%;font:inherit;padding:11px 12px;border-radius:10
 #form{height:720px;background:#fff}
 .note{color:var(--muted);font-size:.9rem;margin-top:12px}
 iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
-.photo-wall{height:500px;} /* Hauteur plus grande pour les photos */
+.photo-wall{height:500px;}
+/* Styles du compte à rebours */
+.countdown-container { display: flex; justify-content: center; gap: 15px; font-size: 2rem; font-weight: 800; color: var(--accent); margin-top: 10px; }
+.cd-box { display: flex; flex-direction: column; align-items: center; min-width: 60px; }
+.cd-label { font-size: 0.85rem; color: var(--muted); font-weight: 700; text-transform: uppercase; margin-top: -5px; }
+.cd-sep { color: var(--muted); font-weight: 400; }
 </style>
 </head>
 <body>
@@ -40,13 +45,27 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
   </div>
 
   <!-- LECTEUR DE MUSIQUE -->
-  <div style="text-align: center; margin-bottom: 34px;">
+  <div style="text-align: center; margin-bottom: 24px;">
     <audio controls loop style="width: 100%; max-width: 300px; border-radius: 30px;">
       <source src="musique.mp3" type="audio/mpeg">
       Ton navigateur ne supporte pas le lecteur audio.
     </audio>
     <p class="note" style="margin-top: 4px;">🎵 Appuie sur Play pour l'ambiance !</p>
   </div>
+
+  <!-- COMPTE À REBOURS -->
+  <section class="card" style="text-align: center;">
+    <h2>Début des hostilités dans :</h2>
+    <div id="countdown" class="countdown-container">
+      <div class="cd-box"><span id="cd-days">00</span><span class="cd-label">Jours</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-box"><span id="cd-hours">00</span><span class="cd-label">Heures</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-box"><span id="cd-minutes">00</span><span class="cd-label">Min</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-box"><span id="cd-seconds">00</span><span class="cd-label">Sec</span></div>
+    </div>
+  </section>
 
   <section class="card">
     <h2>Infos pratiques</h2>
@@ -75,8 +94,8 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
 
   <!-- NOUVELLE SECTION : ALBUM PHOTO -->
   <section class="card">
-    <h2>Photos</h2>
-    <p style="margin-top:0">Partagez vos meilleures photos de la soirée !</p>
+    <h2>Album Photo Collaboratif</h2>
+    <p style="margin-top:0">Partagez vos meilleures photos de la soirée ! (Elles apparaîtront après validation).</p>
     <iframe id="photos" class="photo-wall" title="Mur de photos" loading="lazy" allow="camera;microphone;geolocation"></iframe>
   </section>
 
@@ -86,23 +105,19 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
 /* ============ CONFIGURATION ============ */
 const CONFIG = {
   titre: "Kappourse - RELOADED/RESURECTION",
-  date: "Mardi 13 octobre 2026",
+  date: "Lundi 13 octobre 2026",
   dateISO: "20261013",            // AAAAMMJJ
   heureDebut: "1900",              // HHMM 
   heureFin: "2300",
   heure: "À partir de 19h",        
   adresse: "Grand Rue 25b 308",
   acces: "Kappourse",
-  
-  // MODIFICATION ICI :
   apporter: "Votre cuve perso",
-  
   deadline: "8 octobre",
   formEmbed: "https://docs.google.com/forms/d/e/1FAIpQLSc9mnXwB_2EruUzpghb9V3ZBXk3BrWepzhYR5JFCsGkAe4bHQ/viewform?embedded=true",
   
-  // NOUVEAU : Lien d'intégration Padlet
-  // Remplace ce lien par le lien "Embed" (Intégrer) de ton Padlet.
-  padletEmbed: "https://padlet.com/jean50/photo-kappourse-s0241bfsph9jr090r4oo"
+  // RAPPEL : Remplace ceci par ton vrai lien d'intégration Padlet !
+  padletEmbed: "https://padlet.com/embed/TON_LIEN_ICI"
 };
 /* ===================================== */
 
@@ -134,6 +149,31 @@ $("formLink").href = CONFIG.formEmbed.replace("?embedded=true", "");
 
 // Mur de photos (Padlet)
 $("photos").src = CONFIG.padletEmbed;
+
+// Logiciel du compte à rebours
+const countDownDate = new Date("2026-10-13T19:00:00").getTime();
+const x = setInterval(function() {
+  const now = new Date().getTime();
+  const distance = countDownDate - now;
+
+  // Calculs du temps
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Affichage avec des zéros devant si < 10 (ex: 09 au lieu de 9)
+  $("cd-days").textContent = days.toString().padStart(2, '0');
+  $("cd-hours").textContent = hours.toString().padStart(2, '0');
+  $("cd-minutes").textContent = minutes.toString().padStart(2, '0');
+  $("cd-seconds").textContent = seconds.toString().padStart(2, '0');
+
+  // Si le compte à rebours est terminé
+  if (distance < 0) {
+    clearInterval(x);
+    $("countdown").innerHTML = "C'est l'heure ! 🍻";
+  }
+}, 1000);
 </script>
 </body>
 </html>
