@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pendaison de crémaillère</title>
+<title>Kappourse - RELOADED/RESURECTION</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -42,7 +42,7 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
       <dt>Date</dt><dd id="date"></dd>
       <dt>Heure</dt><dd id="heure"></dd>
       <dt>Adresse</dt><dd id="adresse"></dd>
-      <dt>Code / étage</dt><dd id="acces"></dd>
+      <dt>Lieu / accès</dt><dd id="acces"></dd>
       <dt>Apporter</dt><dd id="apporter"></dd>
     </dl>
     <iframe id="map" title="Carte" loading="lazy"></iframe>
@@ -66,17 +66,17 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
 <script>
 /* ============ MODIFIE ICI ============ */
 const CONFIG = {
-  titre: "Pendaison de crémaillère",
+  titre: "Kappourse - RELOADED/RESURECTION",
   intro: "J'ai enfin un chez moi et je veux le fêter avec vous. Venez boire un verre, visiter et rester aussi longtemps que vous voulez !",
-  date: "Samedi 15 novembre 2026",
-  dateISO: "20261115",            // AAAAMMJJ
+  date: "Lundi 13 octobre 2026",
+  dateISO: "20261013",            // AAAAMMJJ
   heureDebut: "1800",              // HHMM
   heureFin: "2300",
   heure: "À partir de 18h",
-  adresse: "Rue Exemple 12, 6000 Charleroi",
-  acces: "Sonnette « Dupont », 2e étage",
+  adresse: "Grand Rue 25b 308",
+  acces: "Kappourse",
   apporter: "Rien, juste ta bonne humeur (ou une boisson si tu veux)",
-  deadline: "8 novembre",
+  deadline: "8 octobre",
   // Lien de ton Google Form (Envoyer → icône < > pour l'intégration → copie l'URL après src=)
   formEmbed: "https://docs.google.com/forms/d/e/COLLE_TON_ID_ICI/viewform?embedded=true"
 };
@@ -91,14 +91,17 @@ $("adresse").textContent = CONFIG.adresse;
 $("acces").textContent = CONFIG.acces;
 $("apporter").textContent = CONFIG.apporter;
 $("deadline").textContent = CONFIG.deadline;
-const q = encodeURIComponent(CONFIG.adresse);
+
+// Recherche Google Maps incluant le nom du lieu et l'adresse
+const q = encodeURIComponent("Kappourse, " + CONFIG.adresse);
 $("map").src = "https://www.google.com/maps?q=" + q + "&output=embed";
 $("itineraire").href = "https://www.google.com/maps/dir/?api=1&destination=" + q;
+
 $("agenda").href = "data:text/calendar;charset=utf-8," + encodeURIComponent(
   "BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:" + CONFIG.titre +
   "\nDTSTART:" + CONFIG.dateISO + "T" + CONFIG.heureDebut + "00\nDTEND:" + CONFIG.dateISO + "T" + CONFIG.heureFin +
-  "00\nLOCATION:" + CONFIG.adresse + "\nEND:VEVENT\nEND:VCALENDAR");
-$("agenda").download = "cremaillere.ics";
+  "00\nLOCATION: Kappourse, " + CONFIG.adresse + "\nEND:VEVENT\nEND:VCALENDAR");
+$("agenda").download = "kappourse.ics";
 $("form").src = CONFIG.formEmbed;
 $("formLink").href = CONFIG.formEmbed.replace("?embedded=true", "");
 </script>
