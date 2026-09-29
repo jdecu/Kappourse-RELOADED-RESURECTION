@@ -7,7 +7,6 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-/* ====== À PERSONNALISER : tout se trouve dans le bloc <script> en bas ====== */
 :root{--bg:#1f3a34;--paper:#f3ecdf;--ink:#1c2b27;--accent:#e9a03b;--muted:#5d6b66}
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -34,23 +33,19 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
 <main class="wrap">
   <h1 id="titre"></h1>
   
-  <!-- PHOTO AJOUTÉE ICI -->
+  <!-- PHOTO -->
   <div style="text-align: center; margin-bottom: 24px;">
-    <!-- REMPLACE "LIEN_DE_TA_PHOTO.jpg" PAR LE VRAI LIEN DE TON IMAGE -->
-    <img src="affiche.jpg" alt="Affiche Kappourse" style="max-width: 100%; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+    <img src="affiche.jpeg" alt="Affiche Kappourse" style="max-width: 100%; border-radius: 18px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
   </div>
-  <!-- FIN DE LA PHOTO -->
 
   <!-- LECTEUR DE MUSIQUE -->
   <div style="text-align: center; margin-bottom: 34px;">
     <audio controls loop style="width: 100%; max-width: 300px; border-radius: 30px;">
-      <!-- REMPLACE "LIEN_DE_TA_MUSIQUE.mp3" PAR LE VRAI LIEN DE TON FICHIER AUDIO -->
       <source src="musique.mp3" type="audio/mpeg">
       Ton navigateur ne supporte pas le lecteur audio.
     </audio>
     <p class="note" style="margin-top: 4px;">🎵 Appuie sur Play pour l'ambiance !</p>
   </div>
-  <!-- FIN DU LECTEUR DE MUSIQUE -->
 
   <section class="card">
     <h2>Infos pratiques</h2>
@@ -80,14 +75,14 @@ iframe{width:100%;height:240px;border:0;border-radius:12px;margin-top:16px}
 </main>
 
 <script>
-/* ============ MODIFIE ICI ============ */
+/* ============ CONFIGURATION ============ */
 const CONFIG = {
   titre: "Kappourse - RELOADED/RESURECTION",
   date: "Lundi 13 octobre 2026",
   dateISO: "20261013",            // AAAAMMJJ
-  heureDebut: "1900",              // HHMM (Mis à 19h)
+  heureDebut: "1900",              // HHMM 
   heureFin: "2300",
-  heure: "À partir de 19h",        // (Mis à 19h)
+  heure: "À partir de 19h",        
   adresse: "Grand Rue 25b 308",
   acces: "Kappourse",
   apporter: "Rien, juste ta bonne humeur (ou une boisson si tu veux)",
@@ -95,6 +90,7 @@ const CONFIG = {
   formEmbed: "https://docs.google.com/forms/d/e/1FAIpQLSc9mnXwB_2EruUzpghb9V3ZBXk3BrWepzhYR5JFCsGkAe4bHQ/viewform?embedded=true"
 };
 /* ===================================== */
+
 const $ = id => document.getElementById(id);
 document.title = CONFIG.titre;
 $("titre").textContent = CONFIG.titre;
